@@ -15,6 +15,7 @@ for ticker in ticker_list:
     data_frames[ticker] = data
 
 app = Dash(__name__)
+server=app.server
 
 app.layout = html.Div([
     dcc.Dropdown(id='ticker_name',
