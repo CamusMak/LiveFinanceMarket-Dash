@@ -4,16 +4,16 @@ import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
-from dash import html, Dash, dcc, callback, Input, Output
+from dash import html, Dash, dcc, callback, Input, Output, dash_table
+import dash_bootstrap_components as dbc
+import dash_mantine_components as dmc
 
-ticker_list = ['DJIA', 'DOW', 'EXPE', 'PXD', 'MCHP', 'CRM', 'NRG', 'NOW']
+# ticker_list = ['DJIA', 'DOW', 'EXPE', 'PXD', 'MCHP', 'CRM', 'NRG', 'NOW']
 
 valid_periods = ['1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'ytd', 'max']
 valid_intervals = ['1m', '2m', '5m', '15m', '30m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo']
 
 symbol_df = pd.read_csv("Ticker_list.csv")[['Symbol', 'Type']]
-
-# valid_tickers = symbol_df['Symbol'].to_numpy()
 
 # valid pairs for interval and period
 valid_pairs = {
@@ -41,109 +41,245 @@ title_names = {
     '1m': ' for 1 minutes'
 }
 
-app = Dash(__name__)
-server = app.server
+"######################################################################################################################"
+"                                                                                                                     "
+"                                          LIVE STOCK MARKET DASHBOARD                                                "
+"                                                                                                                     "
+"######################################################################################################################"
 
-# symbol dive
-symbol_div = html.Div([
+"######################################################################################################################"
+"                                                   APP LAYOUT                                                         "
+"######################################################################################################################"
 
-    dcc.RadioItems(
-        id='type_',
-        options=[{"label": c, "value": c} for c in symbol_df['Type'].unique()],
-        value='stock',
-        inline=True
-    ),
+app = Dash(__name__,
+           external_scripts=[dbc.themes.DARKLY])
 
-    html.Hr(),
+"PAGE 1"
+"######################################################################################################################"
 
-    dcc.Dropdown(
-        id='ticker_name'),
+"SYMBOL LIST"
 
-    html.Hr(),
-
-    dcc.RadioItems(
-        id='valid_interval',
-        options=[{"label": c, "value": c} for c in valid_intervals],
-        value='1d',
-        inline=True
-    ),
-
-    html.Hr(),
-
-
-    dcc.Graph(
-        id='candle_chart',
-        config={'scrollZoom': True}
-    )
+symbol_tabs = dcc.Tabs(
+    children=[
+        dcc.Tab(id='stock', label='Stock', value='stock'),
+        dcc.Tab(id='crypto', label='Crypto', value='crypto'),
+        dcc.Tab(id='gold', label='Gold', value='gold')
     ],
-        style={"color":'blue','fontSize':14}
+    id='symbol-type',
+    value='crypto'
+)
+
+"CANDLE CHART"
+
+candle_chart_div = html.Div(
+    children=[
+        html.Div(style={'display': 'flex'},
+                 children=[
+
+                     html.Div(
+                         children=
+                         [
+                             html.H1("Symbol list"),
+                             dcc.Dropdown(
+                                 id='symbol-list',
+                                 style={"width": '200px',
+                                        'flex': '50%'}
+                             )
+                         ],
+
+                         style={'flex': '50%'}
+
+                     ),
+
+                     html.Div(
+                         children=
+                         [
+                             html.H1('Time interval'),
+                             dcc.RadioItems(
+                                 id='valid-interval',
+                                 value='1mo',
+                                 inline=True,
+                                 options=[{"label": c, 'value': c} for c in valid_intervals],
+                             )
+                         ],
+
+                         style={'flex': '50%'}
+                     )
+
+                 ]
+                 ),
+
+        #     first page
+        # candle chart
+
+        html.Br(),
+        dcc.Checklist(
+            id='line-chart-to-candle',
+            options=[{"label": c, 'value': c} for c in ['Open', 'Close', 'High', 'Low']],
+            inline=True
+        ),
+        html.Div(
+            id='candle-chart-df'
+        )
+
+    ]
 
 )
 
-app.layout = html.Div([
-    symbol_div
-])
+"HISTOGRAM & "
+
+histogram_div = html.Div(
+    id='hist-pie-div',
+    style={"display": "flex"},
+    children=
+    [
+        html.Div(
+            id='hist-chart',
+            style={"flex": '50%'},
+            children=
+            [
+                dcc.RadioItems(
+                    id='price-type',
+                    value='Open',
+                    options=[{'label': c, 'value': c} for c in ['Open', 'Close', 'High', 'Low']],
+                    inline=True
+                )
+            ]
+        ),
+
+        html.Div(
+            id='pie-chart',
+            style={'flex': '50%'}
+
+        )
+
+    ]
+)
+
+page_1 = html.Div(
+    id='page_1',
+    children=
+    [
+        html.H1("Title"),
+        symbol_tabs,
+        html.Br(),
+
+        #     candle chart
+        candle_chart_div
+    ]
+)
+
+
+"LAYOUT"
+"######################################################################################################################"
+
+app.layout = html.Div(
+
+    [
+        page_1
+    ]
+)
+
+"######################################################################################################################"
+"                                                   APP SERVER                                                         "
+"######################################################################################################################"
+
+
+# symbol list
+@app.callback(
+    Output(component_id='symbol-list', component_property='options'),
+    Input(component_id='symbol-type', component_property='value'),
+)
+def symbol_options(symbol_type):
+    return symbol_df[symbol_df['Type'] == symbol_type]['Symbol'].tolist()
 
 
 @app.callback(
-    Output(component_id='ticker_name', component_property='options'),
-    Input(component_id='type_', component_property='value')
+    Output(component_id='symbol-list', component_property='value'),
+    Input(component_id='symbol-list', component_property='options')
 )
-def return_ticker_options(type_):
-    # return [{"label": c, "value": c} for c in symbol_df[symbol_df['Type'] == type_]['Symbol'].tolist()]
-    return symbol_df[symbol_df['Type'] == type_]['Symbol'].tolist()
+def symbol_values(symbol_list):
+    return symbol_list[0]
 
 
+# data table
 @app.callback(
-    Output(component_id='ticker_name', component_property='value'),
-    Input(component_id='ticker_name', component_property='options')
+    Output(component_id='candle-chart-df', component_property='children'),
+    Input(component_id='symbol-list', component_property='value'),
+    Input(component_id='valid-interval', component_property='value'),
+    Input(component_id='line-chart-to-candle', component_property='value')
 )
-def return_ticker_name(ticker_name):
-    # return [ticker['value'] for ticker in ticker_name]
-    return ticker_name[0]
+def candle_chart_df(ticker, interval, price_type):
+    # trace name for candle chart
+    candle_trace = None
 
+    if price_type:
+        candle_trace = 'Candle chart'
 
-@app.callback(
-    Output(component_id='candle_chart', component_property='figure'),
-    Input(component_id='ticker_name', component_property='value'),
-    Input(component_id='valid_interval', component_property='value')
-)
-def candle_chart(ticker_name, interval):
-    # match to the correspondent interval
+    period = [d for d in valid_pairs.keys() if interval in valid_pairs[d]][0]
 
-    period = [x for x in valid_pairs.keys() if interval in valid_pairs[x]][0]
+    df = yf.Ticker(ticker).history(period=period, interval=interval).reset_index()
 
-    df = yf.Ticker(ticker_name).history(interval=interval,
-                                        period=period).reset_index()
     df['Date'] = pd.to_datetime(df.iloc[:, 0])
 
-    # title
-    title_part = title_names[interval]
-    title = ticker_name + ' Candle chart' + title_part
+    candle_chart = go.Figure()
 
-    if len(title_part.split()) == 1:
-        title = ticker_name + title_part + ' Candle chart'
-
-    fig = go.Figure()
-
-    fig.add_trace(
+    candle_chart.add_trace(
         go.Candlestick(
-            x=df['Date'],
             open=df['Open'],
             close=df['Close'],
             high=df['High'],
-            low=df['Low']
+            low=df['Low'],
+            x=df['Date'],
+            name=candle_trace
         )
     )
 
-    fig.update_layout(
-        title=title,
+    candle_chart.update_layout(
         xaxis_rangeslider_visible=False,
         template=pio.templates['plotly_white']
-
     )
 
-    return fig
+    if price_type:
+        df_long = pd.melt(df, id_vars=['Date'])
+        # variable is the name of new created categorical column
+        # value is the name of new created numerical value
+        df_long = df_long[df_long['variable'].isin(price_type)]
+
+        df_long = df_long.sort_values(['Date', 'variable'])
+
+        candle_chart.update_layout()
+
+        colors = [0, 1, 2, 3]
+
+        for i in range(len(price_type)):
+            df_ = df_long[df_long['variable'] == price_type[i]]
+            candle_chart.add_trace(
+                go.Scatter(
+                    x=df_['Date'],
+                    y=df_['value'],
+                    mode='lines',
+                    name=price_type[i]
+                )
+
+            )
+
+    return html.Div(
+        children=[
+            dcc.Graph(figure=candle_chart,
+                      config={"scrollZoom": True}),
+            html.Div(
+                dash_table.DataTable(
+                    df.to_dict('records'), [{"name": c, "id": c} for c in df.columns], id='candle-table'
+                ),
+                style={"display": 'none'}
+            )
+        ]
+    )
+
+
+"Page callback"
+
 
 
 if __name__ == '__main__':
