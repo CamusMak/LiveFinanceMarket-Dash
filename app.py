@@ -54,6 +54,9 @@ title_names = {
 app = Dash(__name__,
            external_scripts=[dbc.themes.DARKLY])
 
+
+server = app.server
+
 "PAGE 1"
 "######################################################################################################################"
 
@@ -169,7 +172,6 @@ page_1 = html.Div(
     ]
 )
 
-
 "LAYOUT"
 "######################################################################################################################"
 
@@ -279,8 +281,6 @@ def candle_chart_df(ticker, interval, price_type):
 
 
 "Page callback"
-
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
