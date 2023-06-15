@@ -4,3 +4,5 @@ plotly
 yfinance
 numpy
 gunicorn
+dash-bootstrap-components
+dash-mantine-components
