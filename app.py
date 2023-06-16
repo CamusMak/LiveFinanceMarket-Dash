@@ -2,7 +2,7 @@ import dash
 from dash import html, Dash, dcc, callback, Input, Output, dash_table
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
-from dash.exceptions import  PreventUpdate
+# from dash.exceptions import  PreventUpdate
 
 SIDEBAR_STYLE = {
     "position": "fixed",
@@ -47,7 +47,7 @@ sidebar = dbc.Nav(
 
 app.layout = dbc.Container([
     dbc.Row([
-        dbc.Col(html.Div("Python Multipage App with Dash",
+        dbc.Col(html.Div("Live stock market",
                          style={'fontSize': 50, 'textAlign': 'center'}))
     ]),
 
