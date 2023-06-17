@@ -2,7 +2,12 @@ dash
 pandas
 plotly
 yfinance
+yahooquery
 numpy
 gunicorn
 dash-bootstrap-components
 dash-mantine-components
+pyorbital
+datetime
+statsmodels
+

@@ -1,18 +1,30 @@
 import dash
 import yfinance as yf
+import yahooquery as yq
 import pandas as pd
 import numpy as np
 
 import plotly.express as px
 import plotly.graph_objects as go
 import plotly.io as pio
-from dash import html, Dash, dcc, callback, Input, Output, dash_table
+from dash import html, Dash, dcc, callback, Input, Output, dash_table, State
 import dash_bootstrap_components as dbc
+import dash_mantine_components as dmc
+
+# from pyorbital.orbital import  Orbital
+
 
 valid_periods = ['1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'ytd', 'max']
 valid_intervals = ['1m', '2m', '5m', '15m', '30m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo']
 
-symbol_df = pd.read_csv("Ticker_list.csv")
+symbol_df_ = pd.read_csv("Ticker_list.csv")
+
+trending_df = pd.DataFrame(yq.get_trending()['quotes'])
+trending_df = pd.DataFrame({"Symbol": trending_df['symbol'].tolist(),
+                            "Name": trending_df['symbol'].tolist(),
+                            "Type": "trending"})
+
+symbol_df = pd.concat([symbol_df_, trending_df])
 
 # valid pairs for interval and period
 valid_pairs = {
@@ -63,6 +75,7 @@ dash.register_page(__name__, name='Candle chart')
 
 symbol_tabs = dcc.Tabs(
     children=[
+        dcc.Tab(id='trending', label='Trending', value='trending'),
         dcc.Tab(id='stock', label='Stock', value='stock'),
         dcc.Tab(id='crypto', label='Crypto', value='crypto'),
         dcc.Tab(id='gold', label='Gold', value='gold'),
@@ -76,19 +89,23 @@ symbol_tabs = dcc.Tabs(
 
 candle_chart_div = html.Div(
     children=[
+        html.Div(
+            dcc.Interval(
+                id='update-candle',
+                interval=1000,
+                n_intervals=1
+
+            )
+        ),
         html.Div(style={'display': 'flex'},
                  children=[
 
                      html.Div(
                          children=
                          [
-                             html.H3("Symbol list"),
-                             dcc.Dropdown(
-                                 id='symbol-list',
-                                 style={"width": '200px',
-                                        'flex': '50%'}
-                             )
+
                          ],
+                         id='symbol-list-container',
 
                          style={'flex': '30%'}
 
@@ -97,17 +114,26 @@ candle_chart_div = html.Div(
                      html.Div(
                          children=
                          [
-                             html.H3('Time interval'),
-                             dcc.RadioItems(
+                             dmc.Select(
+                                 label='Tim interval',
                                  id='valid-interval',
                                  value='1mo',
-                                 inline=True,
-                                 options=[{"label": c, 'value': c} for c in valid_intervals],
+                                 data=[{"label": c, 'value': c} for c in valid_intervals],
                              )
                          ],
 
-                         style={'flex': '70%'}
-                     )
+                         style={'flex': '10%'}
+                     ),
+                     html.Div(
+                         dmc.Select(
+                             label='Number of canldes',
+                             value=30,
+                             id='n-candles',
+                             data=[{"label":c,"value":c} for c in range(100)]
+                         ),
+                         style={'flex': '10%'}
+
+                     ),
 
                  ]
                  ),
@@ -123,7 +149,7 @@ candle_chart_div = html.Div(
                         id='line-chart-to-candle',
                         options=[{"label": c, 'value': c} for c in ['Open', 'Close', 'High', 'Low', 'MA']],
                         inline=True),
-                    style={"flex": "50%"}
+                    # style={"flex": "50%"}
                 ),
                 html.Br(),
                 html.Div(
@@ -141,11 +167,12 @@ candle_chart_div = html.Div(
                         ),
                     ],
 
-                    style={"flex": "60%"}
+                    # style={"flex": "60%"},
+                    style={"width":"200px"}
                 )
 
             ],
-            style={"display": 'flex'},
+            # style={"display": 'flex'},
 
         ),
         html.Div(
@@ -185,19 +212,22 @@ layout = html.Div(
 
 # symbol list
 @callback(
-    Output(component_id='symbol-list', component_property='options'),
+    Output(component_id='symbol-list-container', component_property='children'),
     Input(component_id='symbol-type', component_property='value'),
 )
 def symbol_options(symbol_type):
-    return symbol_df[symbol_df['Type'] == symbol_type]['Symbol'].tolist()
+    return html.Div(
+        [
+            dcc.Dropdown(
+                id='symbol-list',
+                style={"width": '200px',
+                       'flex': '50%'},
+                options=symbol_df[symbol_df['Type'] == symbol_type]['Symbol'].tolist(),
+                value=symbol_df[symbol_df['Type'] == symbol_type]['Symbol'].tolist()[0]
 
-
-@callback(
-    Output(component_id='symbol-list', component_property='value'),
-    Input(component_id='symbol-list', component_property='options')
-)
-def symbol_values(symbol_list):
-    return symbol_list[0]
+            )
+        ]
+    )
 
 
 # ma range
@@ -222,15 +252,17 @@ def ma_range(price_type):
     Input(component_id='line-chart-to-candle', component_property='value'),
     Input(component_id='symbol-type', component_property='value'),
     Input(component_id='ma-days-range', component_property='value'),
+    Input(component_id='update-candle', component_property='n_intervals'),
+    Input(component_id='n-candles', component_property='value'),
     config_prevent_initial_callbacks=True
 )
-def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_):
+def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n, n_candles):
     # trace name for candle chart
 
     candle_trace = None
 
     # title
-    title = symbol_df[symbol_df['Symbol'] == ticker]['Name'].tolist()[0]
+    title = symbol_df[symbol_df['Symbol'] == ticker]['Name'].values[0]
 
     if symbol_type.lower() == 'forex':
         ticker = ticker + "=X"
@@ -248,6 +280,8 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_):
         candle_trace = 'Candle chart'
         if price_type[0] == 'MA':
             df['MA'] = df['Close'].rolling(ma_range_).mean()
+
+    df = df.tail(n_candles)
 
     candle_chart = go.Figure()
 
@@ -333,7 +367,6 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_):
         template=pio.templates['plotly_white']
     )
 
-
     return html.Div(
         children=[
             dbc.Row(
@@ -393,7 +426,7 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_):
             dbc.Row(
                 [
                     html.H3("Histograms",
-                            style={'textAlign':"center"}),
+                            style={'textAlign': "center"}),
                     html.Div(
                         children=
                         [
@@ -414,11 +447,11 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_):
                                         figure=vol_hist
                                     )
                                 ],
-                                style={"flex":"50%"}
+                                style={"flex": "50%"}
                             )
 
                         ],
-                        style={"display":'flex'}
+                        style={"display": 'flex'}
                     )
                 ]
             ),
@@ -432,3 +465,5 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_):
 
         ]
     )
+
+# update div

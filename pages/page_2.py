@@ -1,5 +1,6 @@
 import dash
 import yfinance as yf
+import yahooquery as yq
 import pandas as pd
 import numpy as np
 
@@ -12,6 +13,7 @@ import dash_mantine_components as dmc
 valid_intervals = ['1m', '2m', '5m', '15m', '30m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo']
 
 symbol_df = pd.read_csv("Ticker_list.csv")
+
 
 stocks = [c for c in symbol_df[symbol_df['Type'] == 'stock']['Symbol']]
 
@@ -85,7 +87,7 @@ layout = html.Div(
                         dmc.MultiSelect(
                             id='forex-list-com',
                             label='Forex',
-                            data=symbol_df[symbol_df['Type'] == 'forex']['Symbol'].tolist()[:10],
+                            data=symbol_df[symbol_df['Type'] == 'forex']['Symbol'].tolist(),
                             searchable=True,
                             clearable=True,
                             placeholder='Select currency...'
@@ -191,25 +193,17 @@ def show_shift_slider(price_type):
     Input(component_id='shift-slider', component_property='value')
 
 )
-def dtw_chart(stock, crypto, gold, forex, interval, price_type, shit_n):
+def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n):
     all_list = []
 
-    if stock:
+    if forex is not None:
+        all_list.extend(forex)
+    if stock is not None:
         all_list.extend(stock)
-    if crypto:
+    if crypto is not None:
         all_list.extend(crypto)
-    if gold:
+    if gold is not None:
         all_list.extend(gold)
-    if forex:
-        new_for = []
-
-        # print(forex)
-        for i in forex:
-            new_for.append(i + "=X")
-        # forex = list(map(lambda x: x + '=X',forex))
-        # print(forex)
-        # print(new_for)
-        all_list = all_list + new_for
 
     if len(all_list) > 0:
         period = [d for d in valid_pairs.keys() if interval in valid_pairs[d]][0]
@@ -217,12 +211,14 @@ def dtw_chart(stock, crypto, gold, forex, interval, price_type, shit_n):
         figure = go.Figure()
 
         for symbol in all_list:
-            print(symbol)
-            df_inner = yf.Ticker(symbol).history(period=period, interval=interval).reset_index()
+            if forex is not None and symbol in forex:
+                df_inner = yf.Ticker(symbol + '=X').history(period=period, interval=interval).reset_index()
+            else:
+                df_inner = yf.Ticker(symbol).history(period=period, interval=interval).reset_index()
             df_inner['Date'] = pd.to_datetime(df_inner.iloc[:, 0])
             df_inner['Mean_Price'] = (df_inner['Open'] + df_inner['Close']) / 2
             df_inner['PrcChange'] = df_inner['Mean_Price'].pct_change()
-            df_inner['LogReturn'] = np.log(df_inner['Mean_Price']) - np.log(df_inner['Mean_Price'].shift(shit_n))
+            df_inner['LogReturn'] = np.log(df_inner['Mean_Price']) - np.log(df_inner['Mean_Price'].shift(shift_n))
 
             figure.add_trace(
                 go.Scatter(

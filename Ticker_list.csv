@@ -25,22 +25,22 @@
 23,ATOM-USD,Cosmos USD,crypto
 24,LINK-USD,Chainlink USD,crypto
 25,UNI7083-USD,Uniswap USD,crypto
-26,XMR-USD,Monero USD,crypto
-27,OKB-USD,OKB USD,crypto
+26,OKB-USD,OKB USD,crypto
+27,XMR-USD,Monero USD,crypto
 28,ETC-USD,Ethereum Classic USD,crypto
-29,XLM-USD,Stellar USD,crypto
+29,BCH-USD,Bitcoin Cash USD,crypto
 30,CNX-USD,Cryptonex USD,crypto
-31,BCH-USD,Bitcoin Cash USD,crypto
+31,XLM-USD,Stellar USD,crypto
 32,ICP-USD,Internet Computer USD,crypto
 33,FIL-USD,Filecoin USD,crypto
-34,LDO-USD,Lido DAO USD,crypto
-35,HEX-USD,HEX USD,crypto
+34,HEX-USD,HEX USD,crypto
+35,LDO-USD,Lido DAO USD,crypto
 36,BTCB-USD,Bitcoin BEP2 USD,crypto
-37,WHBAR-USD,Wrapped HBAR USD,crypto
-38,HBAR-USD,Hedera USD,crypto
-39,CRO-USD,Cronos USD,crypto
-40,APT21794-USD,Aptos USD,crypto
-41,QNT-USD,Quant USD,crypto
+37,HBAR-USD,Hedera USD,crypto
+38,WHBAR-USD,Wrapped HBAR USD,crypto
+39,QNT-USD,Quant USD,crypto
+40,CRO-USD,Cronos USD,crypto
+41,APT21794-USD,Aptos USD,crypto
 42,ARB11841-USD,Arbitrum USD,crypto
 43,NEAR-USD,NEAR Protocol USD,crypto
 44,VET-USD,VeChain USD,crypto
@@ -51,204 +51,204 @@
 49,RPL-USD,Rocket Pool USD,crypto
 50,EGLD-USD,MultiversX USD,crypto
 51,APE18876-USD,ApeCoin USD,crypto
-52,BIT11221-USD,BitDAO USD,crypto
-53,STX4847-USD,Stacks USD,crypto
-54,USDD-USD,USDD USD,crypto
-55,AAVE-USD,Aave USD,crypto
-56,FTM-USD,Fantom USD,crypto
+52,STX4847-USD,Stacks USD,crypto
+53,BIT11221-USD,BitDAO USD,crypto
+54,FTM-USD,Fantom USD,crypto
+55,USDD-USD,USDD USD,crypto
+56,AAVE-USD,Aave USD,crypto
 57,OP-USD,Optimism USD,crypto
 58,KCS-USD,KuCoin Token USD,crypto
 59,SAND-USD,The Sandbox USD,crypto
-60,WEOS-USD,N/A,crypto
+60,RNDR-USD,Render Token USD,crypto
 61,EOS-USD,EOS USD,crypto
-62,XTZ-USD,Tezos USD,crypto
-63,RNDR-USD,Render Token USD,crypto
+62,WEOS-USD,N/A,crypto
+63,XTZ-USD,Tezos USD,crypto
 64,BGB-USD,Bitget Token USD,crypto
 65,MKR-USD,Maker USD,crypto
 66,THETA-USD,Theta Network USD,crypto
-67,TNC5524-USD,TNC Coin USD,crypto
-68,MANA-USD,Decentraland USD,crypto
+67,MANA-USD,Decentraland USD,crypto
+68,TNC5524-USD,TNC Coin USD,crypto
 69,WBNB-USD,Wrapped BNB USD,crypto
 70,XRD-USD,Radix USD,crypto
-71,GUSD-USD,Gemini Dollar USD,crypto
-72,LUNC-USD,Terra Classic USD,crypto
-73,CFX-USD,Conflux USD,crypto
-74,AXS-USD,Axie Infinity USD,crypto
-75,IMX10603-USD,Immutable USD,crypto
-76,NEO-USD,Neo USD,crypto
+71,AXS-USD,Axie Infinity USD,crypto
+72,IMX10603-USD,Immutable USD,crypto
+73,GUSD-USD,Gemini Dollar USD,crypto
+74,NEO-USD,Neo USD,crypto
+75,CFX-USD,Conflux USD,crypto
+76,LUNC-USD,Terra Classic USD,crypto
 77,CRV-USD,Curve DAO Token USD,crypto
 78,BTTOLD-USD,BitTorrent USD,crypto
 79,PAXG-USD,PAX Gold USD,crypto
-80,BTT-USD,BitTorrent(New) USD,crypto
-81,XAUT-USD,Tether Gold USD,crypto
-82,BSV-USD,Bitcoin SV USD,crypto
-83,INJ-USD,Injective USD,crypto
-84,FLOW-USD,Flow USD,crypto
+80,BSV-USD,Bitcoin SV USD,crypto
+81,BTT-USD,BitTorrent(New) USD,crypto
+82,INJ-USD,Injective USD,crypto
+83,XAUT-USD,Tether Gold USD,crypto
+84,SNX-USD,Synthetix USD,crypto
 85,GALA-USD,N/A,crypto
-86,SNX-USD,Synthetix USD,crypto
+86,FLOW-USD,Flow USD,crypto
 87,KLAY-USD,Klaytn USD,crypto
 88,CHZ-USD,Chiliz USD,crypto
 89,XDC-USD,XDC Network USD,crypto
 90,CSPR-USD,Casper USD,crypto
 91,KAVA-USD,Kava USD,crypto
-92,HT-USD,Huobi Token USD,crypto
-93,MIOTA-USD,IOTA USD,crypto
-94,GMX11857-USD,GMX USD,crypto
-95,KAS-USD,Kaspa USD,crypto
+92,MIOTA-USD,IOTA USD,crypto
+93,GMX11857-USD,GMX USD,crypto
+94,SUI20947-USD,Sui USD,crypto
+95,HT-USD,Huobi Token USD,crypto
 96,ZEC-USD,Zcash USD,crypto
-97,GT-USD,GateToken USD,crypto
-98,TWT-USD,Trust Wallet Token USD,crypto
-99,SUI20947-USD,Sui USD,crypto
+97,KAS-USD,Kaspa USD,crypto
+98,GT-USD,GateToken USD,crypto
+99,TWT-USD,Trust Wallet Token USD,crypto
 100,XEC-USD,eCash USD,crypto
-101,WKAVA-USD,Wrapped Kava USD,crypto
+101,FXS-USD,Frax Share USD,crypto
 102,MINA-USD,Mina USD,crypto
-103,FXS-USD,Frax Share USD,crypto
-104,PEPE24478-USD,Pepe USD,crypto
+103,PEPE24478-USD,Pepe USD,crypto
+104,WKAVA-USD,Wrapped Kava USD,crypto
 105,DASH-USD,Dash USD,crypto
-106,TOMI23246-USD,tomiNet USD,crypto
-107,NEXO-USD,Nexo USD,crypto
-108,FTT-USD,FTX Token USD,crypto
-109,USDJ-USD,USDJ USD,crypto
-110,BDX-USD,Beldex USD,crypto
-111,WOO-USD,WOO Network USD,crypto
-112,CAKE-USD,PancakeSwap USD,crypto
-113,LRC-USD,Loopring USD,crypto
-114,MASK8536-USD,Mask Network USD,crypto
+106,NEXO-USD,Nexo USD,crypto
+107,TOMI23246-USD,tomiNet USD,crypto
+108,WOO-USD,WOO Network USD,crypto
+109,FTT-USD,FTX Token USD,crypto
+110,USDJ-USD,USDJ USD,crypto
+111,CAKE-USD,PancakeSwap USD,crypto
+112,LRC-USD,Loopring USD,crypto
+113,MASK8536-USD,Mask Network USD,crypto
+114,BDX-USD,Beldex USD,crypto
 115,LUSD-USD,Liquity USD USD,crypto
 116,RUNE-USD,THORChain USD,crypto
-117,GNO-USD,Gnosis USD,crypto
-118,ZIL-USD,Zilliqa USD,crypto
-119,DYDX-USD,dYdX USD,crypto
-120,CVX-USD,Convex Finance USD,crypto
-121,1INCH-USD,1inch Network USD,crypto
-122,ROSE-USD,Oasis Network USD,crypto
-123,BAT-USD,Basic Attention Token USD,crypto
-124,ENJ-USD,Enjin Coin USD,crypto
-125,AGIX-USD,SingularityNET USD,crypto
-126,MX-USD,MX TOKEN USD,crypto
-127,FLR-USD,Flare USD,crypto
-128,XCH-USD,Chia USD,crypto
-129,BLUR-USD,Blur USD,crypto
-130,XEM-USD,NEM USD,crypto
-131,FLEX-USD,FLEX USD,crypto
-132,HBTC-USD,Huobi BTC USD,crypto
-133,OSMO-USD,Osmosis USD,crypto
+117,ZIL-USD,Zilliqa USD,crypto
+118,GNO-USD,Gnosis USD,crypto
+119,FLR-USD,Flare USD,crypto
+120,DYDX-USD,dYdX USD,crypto
+121,CVX-USD,Convex Finance USD,crypto
+122,ENJ-USD,Enjin Coin USD,crypto
+123,ROSE-USD,Oasis Network USD,crypto
+124,BAT-USD,Basic Attention Token USD,crypto
+125,1INCH-USD,1inch Network USD,crypto
+126,FLEX-USD,FLEX USD,crypto
+127,AGIX-USD,SingularityNET USD,crypto
+128,BLUR-USD,Blur USD,crypto
+129,XCH-USD,Chia USD,crypto
+130,OSMO-USD,Osmosis USD,crypto
+131,MX-USD,MX TOKEN USD,crypto
+132,XEM-USD,NEM USD,crypto
+133,HBTC-USD,Huobi BTC USD,crypto
 134,DFI-USD,DeFiChain USD,crypto
 135,HOT2682-USD,Holo USD,crypto
-136,ABBC-USD,ABBC Coin USD,crypto
-137,RVN-USD,Ravencoin USD,crypto
-138,QTUM-USD,Qtum USD,crypto
-139,ENS-USD,Ethereum Name Service USD,crypto
-140,BAL-USD,Balancer USD,crypto
-141,BABYDOGE-USD,Baby Doge Coin USD,crypto
-142,EDGT-USD,Edgecoin USD,crypto
-143,COMP5692-USD,Compound USD,crypto
-144,DCR-USD,Decred USD,crypto
-145,OCEAN-USD,Ocean Protocol USD,crypto
-146,FLOKI-USD,FLOKI USD,crypto
-147,TFUEL-USD,Theta Fuel USD,crypto
-148,CELO-USD,Celo USD,crypto
+136,ENS-USD,Ethereum Name Service USD,crypto
+137,QTUM-USD,Qtum USD,crypto
+138,BABYDOGE-USD,Baby Doge Coin USD,crypto
+139,BAL-USD,Balancer USD,crypto
+140,RVN-USD,Ravencoin USD,crypto
+141,DCR-USD,Decred USD,crypto
+142,COMP5692-USD,Compound USD,crypto
+143,ABBC-USD,ABBC Coin USD,crypto
+144,EDGT-USD,Edgecoin USD,crypto
+145,FLOKI-USD,FLOKI USD,crypto
+146,OCEAN-USD,Ocean Protocol USD,crypto
+147,CELO-USD,Celo USD,crypto
+148,TFUEL-USD,Theta Fuel USD,crypto
 149,FNSA-USD,N/A,crypto
-150,BTG-USD,Bitcoin Gold USD,crypto
-151,ANKR-USD,Ankr USD,crypto
-152,GMT18069-USD,STEPN USD,crypto
+150,ANKR-USD,Ankr USD,crypto
+151,BTG-USD,Bitcoin Gold USD,crypto
+152,KSM-USD,Kusama USD,crypto
 153,YFI-USD,yearn.finance USD,crypto
 154,RON14101-USD,Ronin USD,crypto
-155,KSM-USD,Kusama USD,crypto
-156,HNT-USD,Helium USD,crypto
-157,SXP-USD,Solar USD,crypto
-158,AUDIO-USD,Audius USD,crypto
-159,JST-USD,JUST USD,crypto
-160,ICX-USD,ICON USD,crypto
-161,LUNA20314-USD,Terra USD,crypto
-162,WEMIX-USD,WEMIX USD,crypto
-163,ASTR-USD,Astar USD,crypto
-164,JASMY-USD,JasmyCoin USD,crypto
+155,GMT18069-USD,STEPN USD,crypto
+156,SXP-USD,Solar USD,crypto
+157,AUDIO-USD,Audius USD,crypto
+158,HNT-USD,Helium USD,crypto
+159,JASMY-USD,JasmyCoin USD,crypto
+160,SSV-USD,ssv.network USD,crypto
+161,ICX-USD,ICON USD,crypto
+162,JST-USD,JUST USD,crypto
+163,LUNA20314-USD,Terra USD,crypto
+164,ASTR-USD,Astar USD,crypto
 165,AR-USD,Arweave USD,crypto
-166,BONE11865-USD,Bone ShibaSwap USD,crypto
-167,IOTX-USD,IoTeX USD,crypto
-168,SSV-USD,ssv.network USD,crypto
-169,GLM-USD,Golem USD,crypto
+166,WEMIX-USD,WEMIX USD,crypto
+167,BONE11865-USD,Bone ShibaSwap USD,crypto
+168,GLM-USD,Golem USD,crypto
+169,IOTX-USD,IoTeX USD,crypto
 170,ELF-USD,aelf USD,crypto
 171,ETHW-USD,EthereumPoW USD,crypto
-172,TOMO-USD,TomoChain USD,crypto
-173,T-USD,Threshold USD,crypto
-174,FET-USD,Fetch.ai USD,crypto
-175,WAVES-USD,Waves USD,crypto
+172,T-USD,Threshold USD,crypto
+173,FET-USD,Fetch.ai USD,crypto
+174,WAVES-USD,Waves USD,crypto
+175,ONE3945-USD,Harmony USD,crypto
 176,XYM-USD,Symbol USD,crypto
 177,TRIBE-USD,Tribe USD,crypto
-178,ZRX-USD,0x Protocol USD,crypto
-179,MAGIC14783-USD,MAGIC USD,crypto
-180,HIVE-USD,Hive USD,crypto
-181,SC-USD,Siacoin USD,crypto
+178,MAGIC14783-USD,MAGIC USD,crypto
+179,HIVE-USD,Hive USD,crypto
+180,ZRX-USD,0x Protocol USD,crypto
+181,TOMO-USD,TomoChain USD,crypto
 182,ONT-USD,Ontology USD,crypto
-183,ILV-USD,Illuvium USD,crypto
-184,GLMR-USD,Moonbeam USD,crypto
-185,IOST-USD,IOST USD,crypto
-186,ONE3945-USD,Harmony USD,crypto
-187,WAXP-USD,WAX USD,crypto
-188,EURS-USD,STASIS EURO USD,crypto
-189,SUSHI-USD,SushiSwap USD,crypto
-190,ANT-USD,Aragon USD,crypto
-191,BAND-USD,Band Protocol USD,crypto
-192,SFP-USD,SafePal USD,crypto
-193,CHSB-USD,SwissBorg USD,crypto
-194,ORDI-USD,N/A,crypto
-195,BORA-USD,BORA USD,crypto
-196,KDA-USD,Kadena USD,crypto
-197,USTC-USD,TerraClassicUSD USD,crypto
-198,EDU24613-USD,Open Campus USD,crypto
-199,ACH-USD,Alchemy Pay USD,crypto
+183,SC-USD,Siacoin USD,crypto
+184,ILV-USD,Illuvium USD,crypto
+185,GLMR-USD,Moonbeam USD,crypto
+186,IOST-USD,IOST USD,crypto
+187,SUSHI-USD,SushiSwap USD,crypto
+188,WAXP-USD,WAX USD,crypto
+189,ANT-USD,Aragon USD,crypto
+190,BAND-USD,Band Protocol USD,crypto
+191,EURS-USD,STASIS EURO USD,crypto
+192,ORDI-USD,N/A,crypto
+193,SFP-USD,SafePal USD,crypto
+194,CHSB-USD,SwissBorg USD,crypto
+195,EDU24613-USD,Open Campus USD,crypto
+196,ACH-USD,Alchemy Pay USD,crypto
+197,KDA-USD,Kadena USD,crypto
+198,BORA-USD,BORA USD,crypto
+199,WBETH-USD,Wrapped Beacon ETH USD,crypto
 200,BICO-USD,Biconomy USD,crypto
-201,WBETH-USD,Wrapped Beacon ETH USD,crypto
+201,FLUX-USD,Flux USD,crypto
 202,DAO-USD,DAO Maker USD,crypto
-203,ONUS-USD,ONUS USD,crypto
-204,FLUX-USD,Flux USD,crypto
-205,LYXE-USD,N/A,crypto
-206,AXL17799-USD,Axelar USD,crypto
-207,GNS-USD,Gains Network USD,crypto
+203,USTC-USD,TerraClassicUSD USD,crypto
+204,GNS-USD,Gains Network USD,crypto
+205,ONUS-USD,ONUS USD,crypto
+206,LYXE-USD,N/A,crypto
+207,CORE23254-USD,Core USD,crypto
 208,STG18934-USD,Stargate Finance USD,crypto
-209,MOB-USD,MobileCoin USD,crypto
+209,AXL17799-USD,Axelar USD,crypto
 210,ASTRAFER-USD,Astrafer USD,crypto
-211,CELR-USD,Celer Network USD,crypto
-212,CORE23254-USD,Core USD,crypto
-213,LPT-USD,Livepeer USD,crypto
-214,SKL-USD,SKALE USD,crypto
+211,MOB-USD,MobileCoin USD,crypto
+212,SKL-USD,SKALE USD,crypto
+213,CELR-USD,Celer Network USD,crypto
+214,LPT-USD,Livepeer USD,crypto
 215,UMA-USD,UMA USD,crypto
-216,JOE-USD,JOE USD,crypto
-217,CKB-USD,Nervos Network USD,crypto
+216,CKB-USD,Nervos Network USD,crypto
+217,JOE-USD,JOE USD,crypto
 218,BRISE-USD,Bitgert USD,crypto
 219,SURE-USD,inSure DeFi USD,crypto
-220,EVER-USD,Everscale USD,crypto
-221,DGB-USD,DigiByte USD,crypto
-222,RSR-USD,Reserve Rights USD,crypto
-223,PENDLE-USD,Pendle USD,crypto
-224,POLY-USD,Polymath USD,crypto
-225,USDX6651-USD,USDX [Kava] USD,crypto
-226,NYM-USD,NYM USD,crypto
-227,VVS-USD,VVS Finance USD,crypto
-228,SYS-USD,Syscoin USD,crypto
-229,ID21846-USD,SPACE ID USD,crypto
-230,CTSI-USD,Cartesi USD,crypto
-231,RBTC-USD,Rootstock Smart Bitcoin USD,crypto
-232,LSK-USD,Lisk USD,crypto
-233,RBN-USD,Ribbon Finance USD,crypto
-234,TRAC-USD,OriginTrail USD,crypto
-235,MLK-USD,MiL.k USD,crypto
-236,STORJ-USD,Storj USD,crypto
+220,PENDLE-USD,Pendle USD,crypto
+221,RSR-USD,Reserve Rights USD,crypto
+222,EVER-USD,Everscale USD,crypto
+223,DGB-USD,DigiByte USD,crypto
+224,SYS-USD,Syscoin USD,crypto
+225,TRAC-USD,OriginTrail USD,crypto
+226,POLY-USD,Polymath USD,crypto
+227,CTSI-USD,Cartesi USD,crypto
+228,ID21846-USD,SPACE ID USD,crypto
+229,NYM-USD,NYM USD,crypto
+230,RBTC-USD,Rootstock Smart Bitcoin USD,crypto
+231,VVS-USD,VVS Finance USD,crypto
+232,USDX6651-USD,USDX [Kava] USD,crypto
+233,LSK-USD,Lisk USD,crypto
+234,RBN-USD,Ribbon Finance USD,crypto
+235,STORJ-USD,Storj USD,crypto
+236,MLK-USD,MiL.k USD,crypto
 237,ALPHA-USD,Stella USD,crypto
-238,MTL-USD,Metal DAO USD,crypto
-239,BTRST-USD,Braintrust USD,crypto
-240,NFT9816-USD,APENFT USD,crypto
-241,RLC-USD,iExec RLC USD,crypto
-242,ELON-USD,Dogelon Mars USD,crypto
-243,KNC-USD,Kyber Network Crystal v2 USD,crypto
-244,AMP-USD,Amp USD,crypto
+238,ELON-USD,Dogelon Mars USD,crypto
+239,RLC-USD,iExec RLC USD,crypto
+240,WILD-USD,Wilder World USD,crypto
+241,NFT9816-USD,APENFT USD,crypto
+242,KNC-USD,Kyber Network Crystal v2 USD,crypto
+243,MTL-USD,Metal DAO USD,crypto
+244,XNO-USD,Nano USD,crypto
 245,ZEN-USD,Horizen USD,crypto
-246,XNO-USD,Nano USD,crypto
-247,MRS21178-USD,Metars Genesis USD,crypto
-248,GAL11877-USD,Galxe USD,crypto
-249,PUNDIX-USD,Pundi X (New) USD,crypto
+246,BTRST-USD,Braintrust USD,crypto
+247,GAL11877-USD,Galxe USD,crypto
+248,MRS21178-USD,Metars Genesis USD,crypto
+249,SYN12147-USD,Synapse USD,crypto
 250,CMCSA,Comcast Corporation,stock
 251,TMUS,"T-Mobile US, Inc.",stock
 252,VZ,Verizon Communications Inc.,stock
@@ -263,12 +263,12 @@
 261,VOD,Vodafone Group Public Limited Company,stock
 262,RCI,Rogers Communications Inc.,stock
 263,VIV,Telefônica Brasil S.A.,stock
-264,LBRDA,Liberty Broadband Corporation,stock
-265,LBRDK,Liberty Broadband Corporation,stock
-266,SKM,"SK Telecom Co., Ltd.",stock
-267,LBTYB,Liberty Global plc,stock
-268,LBTYA,Liberty Global plc,stock
-269,LBTYK,Liberty Global plc,stock
+264,LBRDK,Liberty Broadband Corporation,stock
+265,LBRDA,Liberty Broadband Corporation,stock
+266,LBTYA,Liberty Global plc,stock
+267,LBTYK,Liberty Global plc,stock
+268,LBTYB,Liberty Global plc,stock
+269,SKM,"SK Telecom Co., Ltd.",stock
 270,IRDM,Iridium Communications Inc.,stock
 271,TIMB,TIM S.A.,stock
 272,KT,KT Corporation,stock
@@ -278,23 +278,23 @@
 276,TEO,Telecom Argentina S.A.,stock
 277,DISH,DISH Network Corporation,stock
 278,CCOI,"Cogent Communications Holdings, Inc.",stock
-279,TV,"Grupo Televisa, S.A.B.",stock
-280,TIGO,Millicom International Cellular S.A.,stock
+279,TIGO,Millicom International Cellular S.A.,stock
+280,TV,"Grupo Televisa, S.A.B.",stock
 281,IHS,IHS Holding Limited,stock
 282,IDCC,"InterDigital, Inc.",stock
 283,GOGO,Gogo Inc.,stock
-284,LILAK,Liberty Latin America Ltd.,stock
-285,LILA,Liberty Latin America Ltd.,stock
+284,LILA,Liberty Latin America Ltd.,stock
+285,LILAK,Liberty Latin America Ltd.,stock
 286,USM,United States Cellular Corporation,stock
 287,SHEN,Shenandoah Telecommunications Company,stock
 288,TDS,"Telephone and Data Systems, Inc.",stock
-289,IDT,IDT Corporation,stock
-290,WOW,"WideOpenWest, Inc.",stock
+289,WOW,"WideOpenWest, Inc.",stock
+290,IDT,IDT Corporation,stock
 291,ATNI,"ATN International, Inc.",stock
 292,OOMA,"Ooma, Inc.",stock
 293,TDS-PV,"Telephone and Data Systems, Inc.",stock
-294,T-PC,AT&T Inc.,stock
-295,LBRDP,Liberty Broadband Corporation,stock
+294,LBRDP,Liberty Broadband Corporation,stock
+295,T-PC,AT&T Inc.,stock
 296,T-PA,AT&T Inc.,stock
 297,TBB,AT&amp;T Inc. 5.35% GLB NTS 66,stock
 298,TSLA,"Tesla, Inc.",stock
@@ -302,8 +302,8 @@
 300,F,Ford Motor Company,stock
 301,RACE,Ferrari N.V.,stock
 302,STLA,Stellantis N.V.,stock
-303,HMC,"Honda Motor Co., Ltd.",stock
-304,GM,General Motors Company,stock
+303,GM,General Motors Company,stock
+304,HMC,"Honda Motor Co., Ltd.",stock
 305,LI,Li Auto Inc.,stock
 306,NIO,NIO Inc.,stock
 307,RIVN,"Rivian Automotive, Inc.",stock
@@ -336,8 +336,8 @@
 334,VZIO,VIZIO Holding Corp.,stock
 335,VOXX,VOXX International Corporation,stock
 336,UEIC,Universal Electronics Inc.,stock
-337,LLY,Eli Lilly and Company,stock
-338,JNJ,Johnson & Johnson,stock
+337,JNJ,Johnson & Johnson,stock
+338,LLY,Eli Lilly and Company,stock
 339,MRK,"Merck & Co., Inc.",stock
 340,ABBV,AbbVie Inc.,stock
 341,AZN,AstraZeneca PLC,stock
