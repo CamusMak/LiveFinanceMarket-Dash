@@ -32,6 +32,7 @@ valid_date_freq = {
 }
 
 symbol_df = pd.read_csv("Ticker_list.csv")
+forex = symbol_df[symbol_df['Type']=='forex']['Symbol'].tolist()
 
 # valid pairs for interval and period
 valid_pairs = {
@@ -54,7 +55,8 @@ layout = html.Div(
             [
                 html.Div(
                     [
-                        html.H3("Symbol list"),
+                        html.H3("Symbol list",
+                                style={'textAlign': "center"}),
                         dcc.Dropdown(
                             id='select-symbol',
                             options=symbol_df['Symbol'],
@@ -66,7 +68,8 @@ layout = html.Div(
                 ),
                 html.Div(
                     [
-                        html.H3("Timer interval"),
+                        html.H3("Timer interval",
+                                style={'textAlign': "center"}),
                         dcc.Dropdown(
                             id='time-interval',
                             options=valid_intervals,
@@ -77,18 +80,20 @@ layout = html.Div(
                 ),
                 html.Div(
                     [
+                        html.H3("N days",
+                                style={'textAlign': "center"}),
                         dcc.Slider(
                             id='n-forecast',
                             min=1,
-                            max=30,
-                            value=5,
+                            max=100,
+                            value=30,
                             step=1,
                             tooltip={"placement": "bottom", "always_visible": True},
                             marks=None
 
                         )
                     ],
-                    style={'flex':"40%"}
+                    style={'flex': "40%"}
 
                 )
             ],
@@ -112,11 +117,12 @@ layout = html.Div(
     Input(component_id='n-forecast', component_property='value')
 )
 def create_model(ticker, interval, n_forecast):
-    if ticker in symbol_df[symbol_df['Type'] == 'forex']['Symbol']:
-        ticker = ticker + '=X'
     period = [d for d in valid_pairs.keys() if interval in valid_pairs[d]][0]
 
-    df = yf.Ticker(ticker).history(period=period, interval=interval).reset_index()
+    if ticker in forex:
+        df = yf.Ticker(ticker + '=X').history(period=period, interval=interval).reset_index()
+    else:
+        df = yf.Ticker(ticker).history(period=period, interval=interval).reset_index()
 
     df['Date'] = pd.to_datetime(df.iloc[:, 0])
 

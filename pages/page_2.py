@@ -217,8 +217,8 @@ def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n):
                 df_inner = yf.Ticker(symbol).history(period=period, interval=interval).reset_index()
             df_inner['Date'] = pd.to_datetime(df_inner.iloc[:, 0])
             df_inner['Mean_Price'] = (df_inner['Open'] + df_inner['Close']) / 2
-            df_inner['PrcChange'] = df_inner['Mean_Price'].pct_change()
-            df_inner['LogReturn'] = np.log(df_inner['Mean_Price']) - np.log(df_inner['Mean_Price'].shift(shift_n))
+            df_inner['PrcChange'] = df_inner['Close'].pct_change()
+            df_inner['LogReturn'] = np.log(df_inner['Close']) - np.log(df_inner['Mean_Price'].shift(shift_n))
 
             figure.add_trace(
                 go.Scatter(
