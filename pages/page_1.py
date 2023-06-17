@@ -89,14 +89,7 @@ symbol_tabs = dcc.Tabs(
 
 candle_chart_div = html.Div(
     children=[
-        html.Div(
-            dcc.Interval(
-                id='update-candle',
-                interval=1000,
-                n_intervals=1
 
-            )
-        ),
         html.Div(style={'display': 'flex'},
                  children=[
 
@@ -253,7 +246,6 @@ def ma_range(price_type):
     Input(component_id='line-chart-to-candle', component_property='value'),
     Input(component_id='symbol-type', component_property='value'),
     Input(component_id='ma-days-range', component_property='value'),
-    # Input(component_id='update-candle', component_property='n_intervals'),
     Input(component_id='n-candles', component_property='value'),
     config_prevent_initial_callbacks=True
 )
@@ -350,7 +342,7 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n_cand
     df['Change Rate'] = (df['Close'] - df['Open']) / df['Close']
     df['Volatility'] = (df['High'] - df['Low']) / df['Low']
 
-    # Rafo dist plot
+    # change hist plot
     change_hist = px.histogram(data_frame=df,
                                x=df['Change Rate'],
                                nbins=30)
@@ -395,13 +387,7 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n_cand
                                 style={"flex": '50%'},
                                 children=
                                 [
-                                    # dcc.RadioItems(
-                                    #     id='price-type-hist',
-                                    #     value='Open',
-                                    #     options=[{'label': c, 'value': c} for c in
-                                    #              ['Open & Close', 'High & Low', 'MA']],
-                                    #     inline=True
-                                    # ),
+
                                     dcc.Graph(
 
                                         figure=pie_chart_counts
@@ -437,7 +423,7 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n_cand
                                 children=
                                 [
                                     dcc.Graph(
-                                        figure=rafo_hist
+                                        figure=change_hist
                                     )
                                 ],
                                 style={"flex": "50%"}

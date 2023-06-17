@@ -250,15 +250,15 @@ def return_custom_symbol(user_input, submit):
         )
 
 # tell user that input was not valid
-@callback(
-    Output(component_id='custom-select-symbol',component_property='pattern'),
-    Input(component_id='custom-symbol-input',component_property='value'),
-    Input(component_id='submit', component_property='n_clicks')
-)
-def if_valid(user_value,submit):
-
-    if ('submit' == ctx.triggered_id) and (len(user_value)==0):
-        return "Ticker name not found"
+# @callback(
+#     Output(component_id='custom-select-symbol',component_property='pattern'),
+#     Input(component_id='custom-symbol-input',component_property='value'),
+#     Input(component_id='submit', component_property='n_clicks')
+# )
+# def if_valid(user_value,submit):
+#
+#     if ('submit' == ctx.triggered_id) and (len(user_value)==0):
+#         return "Ticker name not found"
 
 
 # comparison plot
