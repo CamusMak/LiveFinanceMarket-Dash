@@ -6,14 +6,13 @@ import numpy as np
 
 import plotly.graph_objects as go
 import plotly.io as pio
-from dash import html, Dash, dcc, callback, Input, Output, dash_table
+from dash import html, Dash, dcc, callback, Input, Output, dash_table, ctx
 import dash_bootstrap_components as dbc
 import dash_mantine_components as dmc
 
 valid_intervals = ['1m', '2m', '5m', '15m', '30m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo']
 
 symbol_df = pd.read_csv("Ticker_list.csv")
-
 
 stocks = [c for c in symbol_df[symbol_df['Type'] == 'stock']['Symbol']]
 
@@ -31,10 +30,12 @@ CONTENT_STYLE = {
     "padding": "2rem 1rem",
 }
 
-dash.register_page(__name__, name="DTW")
+dash.register_page(__name__, name="Comparison of prices")
 
 layout = html.Div(
     [
+        html.H1("Comparison of time series",
+                style={'textAlign': 'center'}),
         html.Div(
             [
 
@@ -50,7 +51,7 @@ layout = html.Div(
                             placeholder='Select stock... '
                         )
                     ],
-                    style={"flex": "25%",
+                    style={"flex": "20%",
                            "textAlign": "center"}
                 ),
                 html.Div(
@@ -64,7 +65,7 @@ layout = html.Div(
                             placeholder='Select crypto...'
                         )
                     ],
-                    style={"flex": "25%",
+                    style={"flex": "20%",
                            "textAlign": "center"}
                 ),
                 html.Div(
@@ -79,7 +80,7 @@ layout = html.Div(
                         )
 
                     ],
-                    style={"flex": "25%",
+                    style={"flex": "20%",
                            "textAlign": "center"}
                 ),
                 html.Div(
@@ -93,9 +94,30 @@ layout = html.Div(
                             placeholder='Select currency...'
                         )
                     ],
-                    style={"flex": "25%",
+                    style={"flex": "20%",
                            "textAlign": "center"}
-                )
+                ),
+                html.Div(
+                    [
+                        dmc.TextInput(
+                            label='Custom symbol',
+                            id='custom-symbol-input',
+                            placeholder='Write ticker name...(APPL)',
+                        )
+                    ],
+                    style={"flex": "20%"}
+                ),
+                html.Div(
+                    [
+                        html.Button(
+                            "Search",
+                            id='submit',
+                            n_clicks=0
+
+                        )
+                    ],
+                    style={'flex': '10%'}
+                ),
             ],
             style={"display": 'flex'}
         ),
@@ -109,19 +131,27 @@ layout = html.Div(
                         dcc.RadioItems(
                             id='log-return',
                             options=[
-                                {"label": 'Mean Price', "value": "Mean_Price"},
-                                {"label": "Percent Change", "value": "PrcChange"},
-                                {"label": "Log Return", "value": 'LogReturn'},
-                                {"label": "Open", "value": "Open"},
-                                {"label": "Close", "value": "Close"},
-                                {"label": "High", "value": "High"},
-                                {"label": "Low", "value": "Low"},
+                                # {"label": 'Mean Price', "value": "Mean_Price"},
+                                # {"label": "Percent Change", "value": "PrcChange"},
+                                # {"label": "Log Return", "value": 'LogReturn'},
+                                # {"label": "Open", "value": "Open"},
+                                # {"label": "Close", "value": "Close"},
+                                # {"label": "High", "value": "High"},
+                                # {"label": "Low", "value": "Low"},
+                                "Mean Price", "Percent Change", "Log Return", "Open", "Close", "High", "Low"
                             ],
-                            value='Mean_Price',
+                            value='Mean Price',
                             inline=True
                         )
                     ],
-                    style={"display": "50%"}
+                    style={"display": "35%"}
+                ),
+
+                html.Div(
+                    [
+
+                    ],
+                    style={'flex': '5%'}
                 ),
 
                 html.Div(
@@ -136,7 +166,17 @@ layout = html.Div(
                         )
 
                     ],
-                    style={'display': "50%"}
+                    style={'display': "35%"}
+                ),
+
+                html.Div(
+                    [
+                        dmc.Select(
+                            id='custom-select-symbol'
+                        )
+                    ],
+                    id='custom-symbol-container',
+                    style={'display': "none"}
                 )
             ],
             style={'display': 'flex'}
@@ -175,13 +215,54 @@ layout = html.Div(
     Input(component_id='log-return', component_property='value')
 )
 def show_shift_slider(price_type):
-    if price_type in ['LogReturn', 'PrcChange']:
+    if price_type in ['Log Return', 'Percent Change']:
         return {"display": 'block'}
     else:
         return {'display': 'none'}
 
 
+# custom input container
+@callback(
+    Output(component_id='custom-symbol-container', component_property='children'),
+    Input(component_id='custom-symbol-input', component_property='value'),
+    Input(component_id='submit', component_property='n_clicks'),
+)
+def return_custom_symbol(user_input, submit):
+    value = []
+    if 'submit' == ctx.triggered_id:
+        custom_symbol = str.upper(user_input)
+        if len(yf.Ticker(custom_symbol).history()) > 0:
+            value.append(user_input)
+        elif len(yf.Ticker(user_input + "=X").history()) > 0:
+            # if custom symbol is currency ticker, assign custom_symbol_is_currency to True
+            value.append(user_input)
+
+    if len(value) != 0:
+        return html.Div(
+            [
+                dmc.Select(
+                    id='custom-select-symbol',
+                    data=[value],
+                    value=value
+                )
+            ],
+            style={'display': 'block'}
+        )
+
+# tell user that input was not valid
+@callback(
+    Output(component_id='custom-select-symbol',component_property='pattern'),
+    Input(component_id='custom-symbol-input',component_property='value'),
+    Input(component_id='submit', component_property='n_clicks')
+)
+def if_valid(user_value,submit):
+
+    if ('submit' == ctx.triggered_id) and (len(user_value)==0):
+        return "Ticker name not found"
+
+
 # comparison plot
+
 @callback(
     Output(component_id='dtw-chart', component_property='children'),
     Input(component_id='stock-list-com', component_property='value'),
@@ -190,10 +271,11 @@ def show_shift_slider(price_type):
     Input(component_id='forex-list-com', component_property='value'),
     Input(component_id='interval-range', component_property='value'),
     Input(component_id='log-return', component_property='value'),
-    Input(component_id='shift-slider', component_property='value')
+    Input(component_id='shift-slider', component_property='value'),
+    Input(component_id='custom-select-symbol', component_property='value'),
 
 )
-def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n):
+def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n, custom_symbol):
     all_list = []
 
     if forex is not None:
@@ -204,6 +286,10 @@ def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n):
         all_list.extend(crypto)
     if gold is not None:
         all_list.extend(gold)
+    if custom_symbol:
+        all_list.extend(custom_symbol)
+
+    # this variable is needed to check if custom symbol is currency symbol or not
 
     if len(all_list) > 0:
         period = [d for d in valid_pairs.keys() if interval in valid_pairs[d]][0]
@@ -211,14 +297,19 @@ def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n):
         figure = go.Figure()
 
         for symbol in all_list:
-            if forex is not None and symbol in forex:
-                df_inner = yf.Ticker(symbol + '=X').history(period=period, interval=interval).reset_index()
-            else:
+            symbol = str.upper(symbol)
+
+            print(symbol)
+
+            if len(yf.Ticker(symbol).history()) != 0:
                 df_inner = yf.Ticker(symbol).history(period=period, interval=interval).reset_index()
+            else:
+                df_inner = yf.Ticker(symbol + '=X').history(period=period, interval=interval).reset_index()
+
             df_inner['Date'] = pd.to_datetime(df_inner.iloc[:, 0])
-            df_inner['Mean_Price'] = (df_inner['Open'] + df_inner['Close']) / 2
-            df_inner['PrcChange'] = df_inner['Close'].pct_change()
-            df_inner['LogReturn'] = np.log(df_inner['Close']) - np.log(df_inner['Mean_Price'].shift(shift_n))
+            df_inner['Mean Price'] = (df_inner['Open'] + df_inner['Close']) / 2
+            df_inner['Percent Change'] = df_inner['Close'].pct_change()
+            df_inner['Log Return'] = np.log(df_inner['Close']) - np.log(df_inner['Close'].shift(shift_n))
 
             figure.add_trace(
                 go.Scatter(
@@ -228,7 +319,10 @@ def dtw_chart(stock, crypto, gold, forex, interval, price_type, shift_n):
                     mode='lines'
                 ))
             figure.update_layout(
-                template=pio.templates['plotly_white']
+                template=pio.templates['plotly_white'],
+                title=symbol,
+                xaxis_title='Date',
+                yaxis_title=price_type
             )
 
         return html.Div(

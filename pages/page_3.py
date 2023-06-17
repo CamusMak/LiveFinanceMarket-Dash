@@ -32,7 +32,7 @@ valid_date_freq = {
 }
 
 symbol_df = pd.read_csv("Ticker_list.csv")
-forex = symbol_df[symbol_df['Type']=='forex']['Symbol'].tolist()
+forex = symbol_df[symbol_df['Type'] == 'forex']['Symbol'].tolist()
 
 # valid pairs for interval and period
 valid_pairs = {
@@ -51,6 +51,8 @@ dash.register_page(__name__, name="ARIMA")
 
 layout = html.Div(
     [
+        html.H1("Future price prediction with ARIMA",
+                style={"textAlign": 'center'}),
         html.Div(
             [
                 html.Div(
@@ -86,7 +88,7 @@ layout = html.Div(
                             id='n-forecast',
                             min=1,
                             max=100,
-                            value=30,
+                            value=20,
                             step=1,
                             tooltip={"placement": "bottom", "always_visible": True},
                             marks=None

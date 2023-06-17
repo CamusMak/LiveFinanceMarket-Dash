@@ -67,7 +67,7 @@ CONTENT_STYLE = {
 "                                                   APP LAYOUT                                                         "
 "######################################################################################################################"
 
-dash.register_page(__name__, name='Candle chart')
+dash.register_page(__name__, name='Candle chart', path='/')
 
 "######################################################################################################################"
 
@@ -126,10 +126,10 @@ candle_chart_div = html.Div(
                      ),
                      html.Div(
                          dmc.Select(
-                             label='Number of canldes',
-                             value=30,
+                             label='Number of candles',
+                             value=50,
                              id='n-candles',
-                             data=[{"label":c,"value":c} for c in range(100)]
+                             data=[{"label": c, "value": c} for c in range(100)]
                          ),
                          style={'flex': '10%'}
 
@@ -168,7 +168,7 @@ candle_chart_div = html.Div(
                     ],
 
                     # style={"flex": "60%"},
-                    style={"width":"200px"}
+                    style={"width": "200px"}
                 )
 
             ],
@@ -187,7 +187,8 @@ page_1 = html.Div(
     id='page_1',
     children=
     [
-        html.H1("Title"),
+        html.H1("Candle chart and Gain & Loss distribution",
+                style={"textAlign": "center"}),
         symbol_tabs,
         html.Br(),
         #     candle chart
@@ -252,11 +253,11 @@ def ma_range(price_type):
     Input(component_id='line-chart-to-candle', component_property='value'),
     Input(component_id='symbol-type', component_property='value'),
     Input(component_id='ma-days-range', component_property='value'),
-    Input(component_id='update-candle', component_property='n_intervals'),
+    # Input(component_id='update-candle', component_property='n_intervals'),
     Input(component_id='n-candles', component_property='value'),
     config_prevent_initial_callbacks=True
 )
-def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n, n_candles):
+def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n_candles):
     # trace name for candle chart
 
     candle_trace = None
@@ -346,21 +347,23 @@ def candle_chart_df(ticker, interval, price_type, symbol_type, ma_range_, n, n_c
     )
 
     # mean and change
-    df['RafoChange'] = (df['Close'] - df['Open']) / df['Close']
-    df['Voaltility'] = (df['High'] - df['Low']) / df['Low']
+    df['Change Rate'] = (df['Close'] - df['Open']) / df['Close']
+    df['Volatility'] = (df['High'] - df['Low']) / df['Low']
 
     # Rafo dist plot
-    rafo_hist = px.histogram(data_frame=df,
-                             x=df['RafoChange'])
+    change_hist = px.histogram(data_frame=df,
+                               x=df['Change Rate'],
+                               nbins=30)
 
-    rafo_hist.update_layout(
+    change_hist.update_layout(
         title='Loss & Gain',
         template=pio.templates['plotly_white']
 
     )
 
     vol_hist = px.histogram(data_frame=df,
-                            x=df['Voaltility'])
+                            x=df['Volatility'],
+                            nbins=30)
 
     vol_hist.update_layout(
         title='Volatility',
