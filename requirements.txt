@@ -10,4 +10,7 @@ dash-mantine-components
 pyorbital
 datetime
 statsmodels
+json
+icecream
+arch
 
