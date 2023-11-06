@@ -643,7 +643,7 @@ class Portfolio:
 
                 performance_history = pd.read_csv(self.portfolio_performance_path)
                 performance_history = pd.concat([performance_history,self.portfolio_performance])
-                performance_history['portfolio_return'] = performance_history['total_value'].pct_change(1).mul(100)
+                performance_history['portfolio_return'] = performance_history['total_amount'].pct_change(1).mul(100)
                 performance_history.to_csv(self.portfolio_performance_path,index=False)
                 self.portfolio_performance = performance_history
             else:

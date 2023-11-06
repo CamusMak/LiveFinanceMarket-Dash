@@ -107,7 +107,7 @@ class PortfolioVisualizer:
         figure.add_trace(
             go.Scatter(
             x=pp['date'],
-            y=pp['portfolio_value'],
+            y=pp['total_amount'],
             name='Portoflio <br>monetary value'),
             row=2,
             col=2
