@@ -31,7 +31,11 @@ valid_date_freq = {
     "3mo": "3m"
 }
 
-symbol_df = pd.read_csv("Ticker_list.csv")
+
+ticker_path = "data/stock/Ticker_list.csv"
+
+
+symbol_df = pd.read_csv(ticker_path)
 forex = symbol_df[symbol_df['Type'] == 'forex']['Symbol'].tolist()
 
 # valid pairs for interval and period

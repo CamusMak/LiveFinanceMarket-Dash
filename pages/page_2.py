@@ -12,7 +12,12 @@ import dash_mantine_components as dmc
 
 valid_intervals = ['1m', '2m', '5m', '15m', '30m', '90m', '1h', '1d', '5d', '1wk', '1mo', '3mo']
 
-symbol_df = pd.read_csv("Ticker_list.csv")
+
+
+ticker_path = "data/stock/Ticker_list.csv"
+
+symbol_df = pd.read_csv(ticker_path)
+
 
 stocks = [c for c in symbol_df[symbol_df['Type'] == 'stock']['Symbol']]
 
