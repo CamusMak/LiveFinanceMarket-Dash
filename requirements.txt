@@ -10,6 +10,7 @@ dash-mantine-components
 pyorbital
 datetime
 statsmodels
+pendulum
 icecream
 arch
 
