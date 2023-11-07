@@ -75,13 +75,25 @@ layout = html.Div(
 
     model_tabs,
 
+
     html.Div(
         [
-        # html.Div(id='portfolio-proportions-pi-chart')
-        html.Div([
 
-        ],
-        id='pie-chart-containier')
+            html.Div([
+
+            ],
+            id='pie-chart-containier',
+            style={"flex":"50%"}),
+
+              
+            
+            
+            html.Br(),
+
+            html.Div([
+
+            ],
+            id = 'info-table')
         ]
     )
 
@@ -93,14 +105,12 @@ layout = html.Div(
 
 
 @callback(
-    Output(component_id='pie-chart-containier',component_property='children'),
+    [Output(component_id='pie-chart-containier',component_property='children'),
+    Output(component_id='info-table',component_property='children')],
     Input(component_id='model-types',component_property='value'))
 
 
-def plot_proportions(portfolio_creation_type):
-
-
-    
+def plot_proportions_and_show_records(portfolio_creation_type):
 
 
     now = dt.datetime.now()
@@ -113,12 +123,13 @@ def plot_proportions(portfolio_creation_type):
     if model_type == 'linear-portfolio':
         # print(model_type)
         figure = visualizer.visualize_portfolio(linear_portfolio)
+        records = linear_portfolio.get_full_records_as_df(True)
 
-        return html.Div([dcc.Graph(figure=figure)])
-
+        return html.Div([dcc.Graph(figure=figure)]),\
+               html.Div([dash_table.DataTable(data=records.to_dict('records'),columns=[{"name":i,"id":i} for i in records.columns])])
     else:
         # print(model_type)
-        return html.Div([])
+        return html.Div([]),html.Div([])
 
 
 
