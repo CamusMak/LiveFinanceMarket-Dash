@@ -44,6 +44,9 @@ linear_portfolio = manager.linear_portfolio()
 # manager.update_portfolio(linear_portfolio)
 manager.get_all_properties(linear_portfolio)
 
+# quit()
+
+
 
 
 CONTENT_STYLE = {

@@ -2,10 +2,11 @@ import pandas as pd
 import numpy as np
 import yahooquery as yq
 import yfinance as yf
+import pendulum as pen
 
 import time
 import datetime as dt
-import pendulum as pen
+import pendulum as penf
 
 from statsmodels.tsa.arima.model import ARIMA
 from arch import arch_model
