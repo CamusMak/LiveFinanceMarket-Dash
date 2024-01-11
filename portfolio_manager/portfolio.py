@@ -473,6 +473,8 @@ class Portfolio:
 
         for stock in self.watch_list:
             
+            
+            
             if model == 'linear':
                 
                 arima_order = self.best_model_params.loc[stock,['arima_p','arima_d','arima_q']].values
@@ -520,12 +522,13 @@ class Portfolio:
                 elif os.path.exists(lsmt_dir) and retrain_lstm:
                     ask = input("\nThe directory exists. Do you want to optimize models for each stock again? (yes/any other input): ")
                     if ask.lower() != 'yes':
-                        return 0
+                        pass
                     else:
                         self.get_best_lstm(direcotory_to_save=lsmt_dir)
                               
                 
-                for input_type in ['return','volatility']:
+                for input_type in ['return']:
+                    
                     
                     model_path = os.path.join(lsmt_dir,input_type+"_models",stock+".h5")
                     scaler_path = os.path.join(lsmt_dir,input_type+"_scalers",stock+".pkl")
@@ -555,17 +558,18 @@ class Portfolio:
                         data = (data['adjclose'].pct_change(1).dropna().rolling(window=252).std() * np.sqrt(252)).dropna().values.reshape(-1,1)
 
                     data = scaler.transform(data)
+
+                                        
+                    prediction = model.predict(data)
                     
-                    
-                    prediction = model.predict(data).reshape(-1,1)
-                    
-                    print(prediction)
-                    print(prediction.shape)
-                    quit()
+                
+                    # prediction = prediction[0] #.reshape(-1,1)
                     prediction = scaler.inverse_transform(prediction)
-                    prediction = prediction[0,0]
-                    
+                    prediction = prediction[0][0]
                     self.next_day_returns.loc[stock,input_type] = prediction
+                    self.next_day_returns.loc[stock,'volatility'] = 0.05
+                    
+                    
                     
                 self.next_day_returns.loc[stock,'last_price'] = last_price
                 self.next_day_returns.loc[stock,'date'] = date
@@ -598,9 +602,18 @@ class Portfolio:
         
         # predicte return and volatility for the next day
         self.get_return_and_volatility(model=model,lsmt_dir=lsmt_dir,retrain_lstm=retrain_lstm)
+        
+        # ic(self.next_day_returns)
+        # quit()
+        
+        # ic(model)
+        # quit()
 
         # get the bests stocks
         best_stocks = self.next_day_returns.sort_values("return",ascending=False).head(number_of_stocks)
+        
+        # print(self.next_day_returns)
+        # quit()
 
         # with return more than 0
         # positive_return_stocks = best_stocks[best_stocks['return']>0]
@@ -609,10 +622,10 @@ class Portfolio:
 
         # weight algorithm
     
-        positive_return_stocks['return_vol_ratio'] = positive_return_stocks['return']/positive_return_stocks['return'].sum() * \
-                                                     positive_return_stocks['volatility']/positive_return_stocks['volatility'].sum()
+        positive_return_stocks['return_vol_ratio'] = positive_return_stocks['return']/(positive_return_stocks['return'].sum() + 1e-19) * \
+                                                     positive_return_stocks['volatility']/(positive_return_stocks['volatility'].sum() +1e-19 )
         
-        positive_return_stocks['weight'] = positive_return_stocks['return_vol_ratio']/positive_return_stocks['return_vol_ratio'].sum()
+        positive_return_stocks['weight'] = positive_return_stocks['return_vol_ratio']/(positive_return_stocks['return_vol_ratio'].sum() + 1e-19)
 
         proportions = positive_return_stocks['weight'].values
         self.current_best_stocks  = positive_return_stocks.index.values.tolist()

@@ -1,1 +1,1 @@
-{"cash": 100000, "portfolio_value": 0, "portfolio": {}, "total_value": 100000, "date": "2024-01-11"}
+{"cash": 38.18748474121094, "portfolio_value": 99961.81251525879, "portfolio": {"AAPL": {"name": "Apple", "quantity": 585, "buying_price": 170.87489318847656, "average_buying_price": 170.87489318847656, "proportion": 0.9996181251525879, "monetary_value": 99961.81251525879, "predicted_return": 0.0005232687690295279, "predicted_volatility": 0.05}}, "total_value": 100000.0, "date": "2024-01-11"}
