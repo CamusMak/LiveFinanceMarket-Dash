@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 
 
 def create_lstm_model(stock='AAPL',start_date="2015-01-01",train_size=0.8,
-                      end_date=None,input_shape=30,batch_size=16,epoch=10,learning_rate=0.03,
+                      end_date=None,input_shape=30,batch_size=16,epoch=10,learning_rate=0.0001,
                       verbose=1,input_type='return'):
     
     
@@ -33,15 +33,19 @@ def create_lstm_model(stock='AAPL',start_date="2015-01-01",train_size=0.8,
     
     # download data
     data = yq.Ticker(stock).history(start=start_date,end=end_date)
+    # data = yq.Ticker(stock).history(period='max')
+
     
     
     if input_type == 'return':
         data = data['adjclose'].pct_change(1).dropna().values.reshape(-1,1)
         
     elif input_type == 'volatility':
-        data = data['adjclose'].pct_change(1).dropna().rolling(window=252).std() * np.sqrt(252)
+        data = data['adjclose'].pct_change(1).dropna().rolling(window=5).std() * np.sqrt(5)
         data = data.dropna().values.reshape(-1,1)
 
+
+    print("Number of missing values: ",np.isnan(data).sum())
     
     # split data
     data_size = len(data)
@@ -66,15 +70,19 @@ def create_lstm_model(stock='AAPL',start_date="2015-01-01",train_size=0.8,
     
     model = Sequential()
     
-    model.add(LSTM(128,input_shape=(input_shape,num_features),return_sequences=True,activation='relu'))
-    model.add(LSTM(128,input_shape=(input_shape,num_features),return_sequences=True,activation='relu'))
-    model.add(Dense(64,activation='relu'))
+    model = Sequential()
+    model.add(LSTM(150, activation='tanh', return_sequences=True, input_shape=(input_shape, num_features)))
+    model.add(LSTM(64, activation='relu'))
+    model.add(Dense(64))
     model.add(Dense(1))
     
     
-    model.compile(optimizer=Adam(learning_rate=learning_rate),loss='mse')
+    model.compile(optimizer='adam', loss='mean_squared_error')
+
     
-    history = model.fit(train_data_generator,epochs=epoch,validation_data=test_data_generator,shuffle=False,verbose=verbose)
+    # model.compile(optimizer=Adam(learning_rate=learning_rate),loss='mse')
+    
+    history = model.fit(train_data_generator,epochs=epoch,validation_data=test_data_generator,batch_size=batch_size,verbose=1)
     
     
     return model,history,scaler

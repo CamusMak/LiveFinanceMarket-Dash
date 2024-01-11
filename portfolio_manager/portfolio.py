@@ -165,12 +165,12 @@ class Portfolio:
 
 
     def get_best_lstm(self,direcotory_to_save="data/lstm_data",start_date="2015-01-01",train_size=0.8,
-                      end_date=None,input_shape=30,batch_size=16,epoch=100,learning_rate=0.03,
+                      end_date=None,input_shape=30,batch_size=16,epoch=10,learning_rate=0.03,
                       verbose=1):
         
         
         if os.path.exists(direcotory_to_save):
-            ask = input("The directory exists. Do you want to optimize models for each stock again? (yes/any other input): ")
+            ask = input("\nThe directory exists. Do you want to optimize models for each stock again? (yes/any other input): ")
 
             if ask.lower() != 'yes':
                 return 0
@@ -457,7 +457,7 @@ class Portfolio:
         self.proportions['cash'] = self.current_cash/self.total_amount,self.current_cash
              
 
-    def get_return_and_volatility(self,path_to_save=None,model=None,lsmt_dir=None,retrain_lstm=False):
+    def get_return_and_volatility(self,path_to_save=None,model=None,lsmt_dir=None,retrain_lstm=True):
 
         """
         model: 'linear','lstm','dense-nn'
@@ -511,14 +511,14 @@ class Portfolio:
             elif model == 'lstm':
                 
                 if not os.path.exists(lsmt_dir):
-                    ask = input("The director does not exist. Do you want to optimize models for each stock? (yes/any other input): ")
+                    ask = input("\nThe director does not exist. Do you want to optimize models for each stock? (yes/any other input): ")
                     if ask.lower() != 'yes':
                         return 0
                     else:
                         self.get_best_lstm(direcotory_to_save=lsmt_dir)
                         
                 elif os.path.exists(lsmt_dir) and retrain_lstm:
-                    ask = input("The director exists. Do you want to optimize models for each stock again? (yes/any other input): ")
+                    ask = input("\nThe directory exists. Do you want to optimize models for each stock again? (yes/any other input): ")
                     if ask.lower() != 'yes':
                         return 0
                     else:
@@ -558,6 +558,10 @@ class Portfolio:
                     
                     
                     prediction = model.predict(data).reshape(-1,1)
+                    
+                    print(prediction)
+                    print(prediction.shape)
+                    quit()
                     prediction = scaler.inverse_transform(prediction)
                     prediction = prediction[0,0]
                     
@@ -576,7 +580,7 @@ class Portfolio:
                 # self.next_day_returns.to_csv(path_to_save)
 
 
-    def create_portfolio(self,number_of_stocks=5,update_portfolio=True,model=None,lsmt_dir=None,retrain_lstm=False):
+    def create_portfolio(self,number_of_stocks=5,update_portfolio=True,model=None,lsmt_dir=None,retrain_lstm=True):
 
         date = pen.today().strftime("%Y-%m-%d")
         
