@@ -473,6 +473,8 @@ class Portfolio:
 
         for stock in self.watch_list:
             
+            ic(stock)
+            
             
             
             if model == 'linear':
@@ -510,22 +512,25 @@ class Portfolio:
                 self.next_day_returns.loc[stock,'last_price'] = last_price
                 self.next_day_returns.loc[stock,'date'] = date
 
-            elif model == 'lstm':
+        if model == 'lstm':
                 
-                if not os.path.exists(lsmt_dir):
-                    ask = input("\nThe director does not exist. Do you want to optimize models for each stock? (yes/any other input): ")
-                    if ask.lower() != 'yes':
-                        return 0
-                    else:
-                        self.get_best_lstm(direcotory_to_save=lsmt_dir)
-                        
-                elif os.path.exists(lsmt_dir) and retrain_lstm:
-                    ask = input("\nThe directory exists. Do you want to optimize models for each stock again? (yes/any other input): ")
-                    if ask.lower() != 'yes':
-                        pass
-                    else:
-                        self.get_best_lstm(direcotory_to_save=lsmt_dir)
+            if not os.path.exists(lsmt_dir):
+                ask = input("\nThe director does not exist. Do you want to optimize models for each stock? (yes/any other input): ")
+                if ask.lower() != 'yes':
+                    return 0
+                else:
+                    self.get_best_lstm(direcotory_to_save=lsmt_dir)
+                    
+            elif os.path.exists(lsmt_dir) and retrain_lstm:
+                ask = input("\nThe directory exists. Do you want to optimize models for each stock again? (yes/any other input): ")
+                if ask.lower() != 'yes':
+                    pass
+                else:
+                    self.get_best_lstm(direcotory_to_save=lsmt_dir)
                               
+            for stock in self.watch_list:
+                
+                print(stock)
                 
                 for input_type in ['return']:
                     
@@ -575,8 +580,8 @@ class Portfolio:
                 self.next_day_returns.loc[stock,'date'] = date
         
 
-            elif model == 'dense-nn':
-                pass
+            # elif model == 'dense-nn':
+            #     pass
 
             self.next_day_returns.dropna(inplace=True)
 

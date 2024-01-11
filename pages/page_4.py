@@ -43,11 +43,11 @@ visualizer = PortfolioVisualizer()
 linear_portfolio = manager.linear_portfolio()
 lstm_portfolio = manager.lstm_portfolio()
 
-lstm_portfolio.create_portfolio(model='lstm',update_portfolio=True,number_of_stocks=5)
+# lstm_portfolio.create_portfolio(model='lstm',update_portfolio=True,number_of_stocks=5)
 
-quit()
+# quit()
 
-manager.update_portfolios('lstm-portfolio')
+# manager.update_portfolios()
 
 manager.get_all_properties()
 
