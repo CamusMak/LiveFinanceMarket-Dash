@@ -68,7 +68,7 @@ class PortfolioManager:
                                 portfolio_performance_path=PORTFOLIO_PERFORMACE_PATH,
                                 model=model,lstm_dir=lstm_dir)
         
-        self.portfolio_list['lstm-portfolio'] = portfolio
+        self.portfolio_list['lstm'] = portfolio
         
 
         return portfolio
@@ -86,12 +86,19 @@ class PortfolioManager:
 
     def update_portfolios(self,portfolio=None,n_stocks=5):
         
+        print("Portfolio",portfolio)
+        
+        # quit()
+        
         if portfolio is None:
             for portfolio in self.portfolio_list:
                 model = portfolio.split('-')[0]
+                
                 self.portfolio_list[portfolio].create_portfolio(model=model,number_of_stocks=n_stocks,update_portfolio=True)
         else:
             model = portfolio.split('-')[0]
+            
+            print(model)
             self.portfolio_list[portfolio].create_portfolio(model=model,number_of_stocks=n_stocks,update_portfolio=True)
 
 

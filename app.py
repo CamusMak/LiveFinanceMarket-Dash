@@ -1,4 +1,3 @@
-
 import dash
 from dash import html, Dash, dcc, callback, Input, Output, dash_table
 import dash_bootstrap_components as dbc
