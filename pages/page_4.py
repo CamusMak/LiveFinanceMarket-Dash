@@ -137,21 +137,23 @@ def plot_proportions_and_show_records(portfolio_creation_type,n_clicks):
 
 
     now = dt.datetime.now()
-    print(now)
     
     model_type = portfolio_creation_type
 
-    # print(model_type)
+    # print("model type",model_type)
 
     portoflio = linear_portfolio if model_type == 'linear-portfolio' else lstm_portfolio
+    
     
     if n_clicks:
         manager.update_portfolios(model_type)
         portoflio = manager.portfolio_list[model_type]
         
-    # print(model_type)
+        print(portoflio)
+        
+    print(model_type)
     figure = visualizer.visualize_portfolio(portoflio)
-    records = linear_portfolio.get_full_records_as_df(True)
+    records = portoflio.get_full_records_as_df(True)
 
     return html.Div([dcc.Graph(figure=figure)]),\
            html.Div([dash_table.DataTable(data=records.to_dict('records'),columns=[{"name":i,"id":i} for i in records.columns])])
