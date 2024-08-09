@@ -2,12 +2,6 @@
 
 """
 
-
-
-
-
-
-
 from statsmodels.tsa import stattools as ts
 from statsmodels.tsa.arima.model import ARIMA
 from arch import arch_model
